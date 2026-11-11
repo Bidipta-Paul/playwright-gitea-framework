@@ -1,0 +1,26 @@
+{
+  "name": "playwright-gitea-framework",
+  "version": "0.1.0",
+  "description": "End-to-end UI + API test framework for a self-hosted Gitea instance. Playwright + TypeScript.",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:smoke": "playwright test tests/smoke",
+    "report": "playwright show-report",
+    "typecheck": "tsc --noEmit",
+    "gitea:setup": "powershell -ExecutionPolicy Bypass -File scripts/gitea.ps1 setup",
+    "gitea:start": "powershell -ExecutionPolicy Bypass -File scripts/gitea.ps1 start",
+    "gitea:stop": "powershell -ExecutionPolicy Bypass -File scripts/gitea.ps1 stop",
+    "gitea:status": "powershell -ExecutionPolicy Bypass -File scripts/gitea.ps1 status",
+    "test:ui": "playwright test --ui"
+  },
+  "author": "Bidipta",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.65.0",
+    "@types/node": "^26.6.6",
+    "dotenv": "^18.0.10",
+    "typescript": "^7.0.2",
+    "zod": "^4.6.7"
+  }
+}
