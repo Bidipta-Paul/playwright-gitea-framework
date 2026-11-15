@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { newUser } from '../../src/utils/test-data';
+import { SignupPage } from '../../src/pages/SignupPage';  
 
 /**
  * Smoke: a brand-new user can register and lands authenticated.
@@ -11,14 +12,18 @@ import { newUser } from '../../src/utils/test-data';
 test('a new user can register and is signed in', async ({ page }) => {
   const user = newUser();
 
-  await page.goto('/user/sign_up');
+  /*await page.goto('/user/sign_up');
 
   await page.getByLabel('Username').fill(user.username);
   await page.getByLabel('Email Address').fill(user.email);
   await page.getByLabel('Password', { exact: true }).fill(user.password);
   await page.getByLabel('Confirm Password').fill(user.password);
 
-  await page.getByRole('button', { name: 'Register Account' }).click();
+  await page.getByRole('button', { name: 'Register Account' }).click();*/
+
+  const signupPage = new SignupPage(page);
+  await signupPage.gotoAndRegister(user);
+  await expect(signupPage.signInLink).toBeHidden();
 
   // Registration should drop us on the dashboard, authenticated.
   await expect(page).toHaveURL(/\/(\?|$)/);
@@ -34,4 +39,6 @@ test('a new user can register and is signed in', async ({ page }) => {
   await expect(
     page.getByText(user.username, { exact: true }).filter({ visible: true }).first(),
   ).toBeVisible();
+
+  
 });
